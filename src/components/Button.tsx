@@ -1,8 +1,9 @@
 interface buttonInterface{
-    color?: 'bg-blue-500' | 'bg-gray-500'
+    color?: 'bg-blue-500' | 'bg-gray-500' | 'bg-green-500'
     text?: string
     action?: ()=> void
     icon?: any
+    type?: 'button' | 'submit'
 }
 
 export default function Button(props: buttonInterface){
@@ -12,17 +13,16 @@ export default function Button(props: buttonInterface){
         <div>
             <button className={`
                     flex
-                    py-2 px-3 mb-7
+                    mt-5
+                    py-3 px-7 mb-7
+                    text
                     font-bold
-                    text-gray-100 ${props.color}
+                    text-white ${props.color}
                     rounded-md
                     transition ease-in-out 
-                    hover:-translate-y-1 hover:scale-110
-                    hover:text-white 
-                    ${color === "bg-blue-500" ? 'hover:shadow-[0px_0px_15px_2px_#ACACFF]' : 'hover:shadow-[0px_0px_15px_2px_#B1B1B3]' }
-                    
+                    hover:scale-110
                 `}
-                    onClick={props.action}
+                    type={props.type}
                 >
                 {props.icon}
                 {props.text}

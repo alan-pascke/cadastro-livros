@@ -7,16 +7,14 @@
   padding: 0;
   margin: 0;
   font-family: 'Arial';
+  color: #5CA5F3
 }
 
 html,
 body {
-  max-width: 100vw;
   height: 100%;
   overflow-x: hidden;
-  background: rgb(168,196,236);
-  background: linear-gradient(0deg, rgba(168,196,236,1) 5%, rgba(247,247,247,1) 80%);
-  background-repeat: no-repeat
+  background: #FFFFFF;
 }
 
 h1{

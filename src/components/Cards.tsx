@@ -1,5 +1,4 @@
-import Image, { StaticImageData } from "next/image"
-import { title } from "process"
+import Image from "next/image"
 
 interface cardsProps{
     title: string
@@ -8,9 +7,9 @@ interface cardsProps{
 
 export default function Cards(props: cardsProps){
     return(
-        <div className="flex flex-col justify-center text-center hover:-translate-y-2 transition hover:ease-in-out">
-            <div className="m-1 mb-4 border-2 rounded-lg overflow-hidden">
-                <Image src={props.imgSrc} alt='capa do livro' width={700} height={700}/>
+        <div className="flex justify-center text-center">
+            <div className="mb-12 rounded-lg overflow-hidden w-11/12 hover:bg-slate-800 hover:scale-110 transition">
+                <Image src={props.imgSrc} alt='capa do livro'/>
                 <h1>{props.title}</h1>
             </div>
         </div>
