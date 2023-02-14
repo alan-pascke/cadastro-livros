@@ -13,8 +13,7 @@ export default function Button(props: buttonInterface){
         <div>
             <button className={`
                     flex
-                    mt-5
-                    py-3 px-7 mb-7
+                    py-3 px-7
                     text
                     font-bold
                     text-white ${props.color}

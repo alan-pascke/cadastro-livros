@@ -99,14 +99,14 @@ export default function Form(){
                             >                            
                         </Input>                       
                     {renderTable()}
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Atualizar" type="submit"/>
                     </div>
                 </form>
             ) : (
                 <form onSubmit={save}>
                     {renderTable()}
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Salvar" type="submit"/>
                     </div>
                 </form>

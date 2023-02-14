@@ -5,10 +5,10 @@ export default function CadastroLivros(){
 
     return(
         <Layout>
-            <div className="flex justify-center text-center items-center mt-20 bg-slate-800">
-                <div className="pt-7">
-                <h1 className="mb-7 text-3xl">Cadastro de Livros</h1>
-                <Form/>
+            <div className="flex justify-center mt-16">
+                <div className="p-[80px_120px] bg-gradient-to-t from-slate-800 to-[#04042a] rounded-xl">
+                    <h1 className="text-3xl pb-12">Cadastro de Livros</h1>
+                    <Form/>
                 </div>
             </div>             
         </Layout>

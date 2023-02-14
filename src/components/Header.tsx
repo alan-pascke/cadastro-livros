@@ -22,7 +22,7 @@ export default function Header(props: any){
             <div className="
                 flex sm:justify-center xs:justify-end
                 h-20 z-10 w-full xs:p-9 
-                bg-slate-800
+                bg-[#04042a]  backdrop-blur-lg
                 items-center 
                 font-bold
                 ">

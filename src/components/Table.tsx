@@ -47,11 +47,11 @@ export default function Table() {
 
     function renderHeader(){
         return(
-            <tr className="grid grid-cols-5 items-center m-2">
-                <th>Id</th>
+            <tr className="grid gap-9 grid-cols-4 items-center m-2">
                 <th>Título</th>
                 <th>Autor</th>
                 <th className="mr-2">Categoria</th>
+                <th>Ação</th>
             </tr>
         )
     };
@@ -72,14 +72,12 @@ export default function Table() {
         return(
             <>
                 {records.map((record) => 
-                <tr key={record.id} className={`grid grid-cols-5 border-t-[#d7d7d7] border-2 items-center`}>
-
-                    <td>{record.id}</td>
+                <tr key={record.id} className={` grid grid-cols-4 gap-9 border border-t-[#d7d7d7] items-center p-2`}>
                     <td>{record.title}</td> 
                     <td>{record.autor}</td> 
                     <td>{record.categories}</td> 
                     <td>
-                        <div className="flex justify-center">
+                        <div>
                      
                             <Link href={'/register_books'}>
                                 <button onClick={() => {
@@ -109,12 +107,12 @@ export default function Table() {
 
             <thead className="
                 text-lg 
-                bg-slate-800
+                bg-[#04042a]
                 ">
                 {renderHeader()}
                 
             </thead>
-            <tbody className="bg-blue-100">
+            <tbody className="bg-blue-500">
                 {renderBody()}
             </tbody>
         </table>
