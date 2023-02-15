@@ -1,52 +1,16 @@
-import { addDoc, collection, doc, updateDoc} from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { db } from "services/firebase";
+import { save, update } from "services/bookServices";
 import Button from "./Button";
 import Input from "./Input";
 
 export default function Form(){
 
     const router = useRouter();
+
     const [title, setTitle] = useState(router.query.title || '');
     const [autor, setAutor] = useState(router.query.autor || '');
     const [categories, setCategories] = useState(router.query.categories || '')
-
-    const update = async (id: any, event: any) => {
-        console.log('teste');
-        event.preventDefault();
-        try {
-            await updateDoc(doc(db, 'records', id), {
-                autor: autor,
-                categories: categories,
-                title: title,
-            });
-            alert('Document was upadate')
-            router.push('/book_research')
-        } catch (error) {
-            alert("Error updating document: " + error);
-        }
-    }
- 
-    const save = async (event: any) =>{
-        event.preventDefault();
-        try {
-            await addDoc(collection(db, 'records'),
-            {
-                autor: autor, 
-                categories: categories,
-                title: title, 
-            })
-            setTitle('')
-            setAutor('')
-            setCategories('')
-            alert('Document was save')
-            
-        } catch (error) {
-            alert("Error writing document: " + error);
-        }
-
-    }
 
     function renderTable(){
         return(
@@ -85,15 +49,12 @@ export default function Form(){
                 </div>                
             </div>
         )
-
     }
 
-
     return(
-
         <div>
             {router.query.id? (
-                <form onSubmit={(event) =>update(router.query.id, event)}>
+                <form onSubmit={(event) =>update(router.query.id, event, autor, categories, title, router)}>
                         <Input 
                             label="ID"
                             type='text'
@@ -108,7 +69,7 @@ export default function Form(){
                     </div>
                 </form>
             ) : (
-                <form onSubmit={save}>
+                <form onSubmit={(e)=>save(e, autor, categories, title)}>
                     {renderTable()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Salvar" type="submit"/>

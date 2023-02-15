@@ -2,7 +2,7 @@ import { FiInstagram, FiFacebook } from 'react-icons/fi'
 
 export default function Footer(){
     return(
-        <div className="grid grid-cols-2 bg-slate-800  p-8 justify-center items-center text-center">
+        <div className="grid grid-cols-2 bg-[#04042a]  p-8 justify-center items-center text-center">
             <div className='col-span-1'>
                 <h1 className="pb-5">Fique por dentro</h1>
                 <div className='pt-2'>

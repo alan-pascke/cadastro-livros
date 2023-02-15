@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { iconeMenu, iconePesquisa } from "./Icons";
+import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Logo from "/public/images/book-logo2.png"
 
-export default function Header(props: any){
+export default function Header(){
 
     const [sidebar, setSidebar] = useState(false)
 
@@ -18,34 +19,37 @@ export default function Header(props: any){
     }
    
     return(
-        <div className="relative">
-            <div className="
-                flex sm:justify-center xs:justify-end
-                h-20 z-10 w-full xs:p-9 
-                bg-[#04042a]  backdrop-blur-lg
-                items-center 
-                font-bold
-                ">
-                <div className="items-center w-28">
-                    <Image src={Logo} alt='logo'></Image>
-                    {/* <button className="m-1">{iconePesquisa}</button>
-                    <input type="text" placeholder="pesquisar..." className="  outline-none focus:bg-white bg-gray-300 rounded-r-xl xs:w-28 sm:w-56"/> */}
+        <div className="bg-[#04042a]">
+            <div className="items-center grid grid-cols-12">
+                <div className="flex col-span-5 ml-5 items-center">
+                    <button 
+                        className="col-span-1 px-1.5 py-1.5 hover:rounded-full rounded-full transition hover:bg-white hover:rotate-90 hover:transition 
+                        xm:invisible xs:visible"
+                        onClick={openClose}
+                        >
+                        {iconeMenu}    
+                    </button>
+                        <Link href={'/'}>
+                            <h1 className="ml-7">Biblioteca</h1>
+                        </Link>
+                        <Image src={Logo} alt='logo' width={110}></Image>
+
+                    </div>
+                <div className="
+                    col-span-6 
+                    flex justify-end text-center items-center
+                    h-20 xs:p-9
+                    font-bold
+                    ">
+                    <div className={`xm:visible xs:invisible justify-self-center inline`}>
+                            <Navbar/>
+                    </div>
                 </div>
             </div>
-
-            <div className="flex absolute z-10 top-5 left-4">
-                <button 
-                    className="px-1.5 py-1.5 hover:rounded-full rounded-full transition hover:bg-white hover:rotate-90 hover:transition "
-                    onClick={openClose}
-                    >
-                    {iconeMenu}    
-                </button>
-                <Link href={'/'}>
-                    <h1 className="ml-7">Biblioteca</h1>
-                </Link>
+            
+            <div className="xm:invisible xs:visible">
+                <Sidebar sidebar={sidebar} openClose={openClose}></Sidebar>  
             </div>
-    
-            <Sidebar sidebar={sidebar} openClose={openClose}></Sidebar>  
         </div>
     )
 }

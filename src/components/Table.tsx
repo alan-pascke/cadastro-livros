@@ -1,62 +1,21 @@
-import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import Link from "next/link"
-import { db } from "services/firebase";
 import { iconeEdicao, iconeLixo } from "./Icons"
 import RegistersInterface from "@/core/RegistersInterface";
 import { useRouter } from "next/router";
 import { stringify } from "querystring";
+import { deleteBook, fetchData } from "services/bookServices";
 
 
 export default function Table() {
 
     const [records, setRecords] = useState<RegistersInterface[]>([]);
 
-
     useEffect(() => {
-        const fetchData = async () => {
-            const data : RegistersInterface[] = [];
-            const booksCol = collection(db, 'records');
-            const bookSnapshot = await getDocs(booksCol);
-            bookSnapshot.forEach((doc)=> {
-                const {title, autor, categories} = doc.data()
-                data.push({
-                id: doc.id,
-                    title,
-                    autor,
-                    categories
-                });
-            });
-            setRecords(data)
-        };
-    
-        fetchData();
+        fetchData(setRecords);
       }, []);
-
-      const deleteBook = async ({id} : RegistersInterface) => {
-        try {
-            await deleteDoc(doc(db, 'records', id))
-            location.reload()
-            console.log('Document was removed');
-        } catch (error) {
-            console.log('Error');
-        }
-        
-    }
        
-
-    function renderHeader(){
-        return(
-            <tr className="grid gap-9 grid-cols-4 items-center m-2">
-                <th>Título</th>
-                <th>Autor</th>
-                <th className="mr-2">Categoria</th>
-                <th>Ação</th>
-            </tr>
-        )
-    };
-
     const router = useRouter();
+    
     const hendleClick = (record: RegistersInterface) =>{
         const query = stringify({
             id: record.id,
@@ -66,34 +25,52 @@ export default function Table() {
         })
         router.push(`/register_books/?${query}`)
     }; 
-    
+
+    function renderHeader(){
+        return(
+            <div className="grid grid-cols-5 h-[60px]">
+                <tr className="col-span-4 grid grid-cols-3 items-center p-2">
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Categoria</th>
+                </tr>
+                <tr className="bg-gray-500 col-span-1 grid grid-cols-2 p-2 items-center">
+                    <th>Editar</th>
+                    <th>Lixo</th>
+                </tr>
+            </div>
+        )
+    };
+
     function renderBody(){
-        
         return(
             <>
                 {records.map((record) => 
-                <tr key={record.id} className={` grid grid-cols-4 gap-9 border border-t-[#d7d7d7] items-center p-2`}>
-                    <td>{record.title}</td> 
-                    <td>{record.autor}</td> 
-                    <td>{record.categories}</td> 
-                    <td>
-                        <div>
+                <div key={record.id} className="grid grid-cols-5">
+                    <tr className={`col-span-4 grid grid-cols-3 border-b items-center p-2`}>
+                        <td>{record.title}</td> 
+                        <td>{record.autor}</td> 
+                        <td>{record.categories}</td> 
+                    </tr>
+                    <tr className="col-span-1 grid grid-cols-2 items-center border-b">
+                        <td>
                             <button onClick={() => {
                                 hendleClick(record)
-                                }}>
+                            }}>
                                 {iconeEdicao}
                             </button>
+                        </td>
+                        <td>
                             <button 
-                                className="ml-3"
                                 onClick={()=> {
                                     confirm('Deseja mesmo exluir?') == true?  deleteBook(record) : false
                                 }}
                                 >{iconeLixo}
                             </button>
-                        </div>
-                    </td>
-                   
-                </tr>)}
+                        </td>
+                    </tr>
+                </div>
+                )}
             </>
         )
     }

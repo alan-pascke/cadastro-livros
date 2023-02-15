@@ -8,8 +8,6 @@ interface sidebarProps{
 }
 
 
-
-
 export default function Sidebar(props: sidebarProps){
 
     const [visible, setVisible] = useState(false)
