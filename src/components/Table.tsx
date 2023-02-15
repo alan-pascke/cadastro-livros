@@ -78,14 +78,11 @@ export default function Table() {
                     <td>{record.categories}</td> 
                     <td>
                         <div>
-                     
-                            <Link href={'/register_books'}>
-                                <button onClick={() => {
-                                    hendleClick(record)
-                                    }}>
-                                    {iconeEdicao}
-                                </button>
-                            </Link>
+                            <button onClick={() => {
+                                hendleClick(record)
+                                }}>
+                                {iconeEdicao}
+                            </button>
                             <button 
                                 className="ml-3"
                                 onClick={()=> {

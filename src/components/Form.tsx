@@ -12,14 +12,17 @@ export default function Form(){
     const [autor, setAutor] = useState(router.query.autor || '');
     const [categories, setCategories] = useState(router.query.categories || '')
 
-    const update = (id: any) => {
+    const update = async (id: any, event: any) => {
+        console.log('teste');
+        event.preventDefault();
         try {
-            updateDoc(doc(db, 'records', id), {
+            await updateDoc(doc(db, 'records', id), {
                 autor: autor,
                 categories: categories,
                 title: title,
             });
             alert('Document was upadate')
+            router.push('/book_research')
         } catch (error) {
             alert("Error updating document: " + error);
         }
@@ -38,6 +41,7 @@ export default function Form(){
             setAutor('')
             setCategories('')
             alert('Document was save')
+            
         } catch (error) {
             alert("Error writing document: " + error);
         }
@@ -89,7 +93,7 @@ export default function Form(){
 
         <div>
             {router.query.id? (
-                <form onSubmit={() =>update(router.query.id)}>
+                <form onSubmit={(event) =>update(router.query.id, event)}>
                         <Input 
                             label="ID"
                             type='text'

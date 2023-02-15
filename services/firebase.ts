@@ -1,5 +1,5 @@
 import { getFirestore } from 'firebase/firestore';
-import firebase, { getApp, getApps, initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import 'firebase/firestore'
 
 
@@ -12,10 +12,6 @@ const firebaseConfig = {
   appId: "1:390875401436:web:6ddf016c75bccf380df819"
 };
 
-// Initialize Firebase
-// if(!firebase.getApps.length){
-//   firebase.initializeApp(firebaseConfig)
-// }
 
 const app = !getApps().length? initializeApp(firebaseConfig) : getApp()
 const db = getFirestore(app);
