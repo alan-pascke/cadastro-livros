@@ -39,8 +39,8 @@ export default function Sidebar(props: sidebarProps){
                 <div id="sidebar" className={`
                         h-full
                         w-64 z-40
-                        bg-[#04042a] 
-                        shadow-[1px_0_5px_#B9D7FF]
+                        bg-gradient-to-t from-[#02025f] via-[#04042a] to-[#04042a] 
+                        shadow-[1px_1px_0_#B9D7FF]
                         ${style}
                         transition-transform duration-500
                         fixed

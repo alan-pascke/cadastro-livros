@@ -29,7 +29,7 @@ export default function Form(){
                     onChange={(e: any) => {setAutor(e.target.value)}}
                     required
                 />
-                <div className="grid grid-cols-1 text-start">
+                <div className="grid grid-cols-1">
                     <label className="text-blue-500">Categoria*</label>
                     <select 
                         id="categorias"  
@@ -39,7 +39,7 @@ export default function Form(){
                         required
                         className="
                             bg-white text-black
-                            rounded-md mb-4 px-2 w-[15.7rem] h-[1.6rem]
+                            rounded-md mb-4 h-[1.6rem]
                             outline-none ">
                         <option value="" disabled>Selecione</option>
                         <option value="adm-negocios">Adm. & Negócios</option>
@@ -69,7 +69,12 @@ export default function Form(){
                     </div>
                 </form>
             ) : (
-                <form onSubmit={(e)=>save(e, autor, categories, title)}>
+                <form onSubmit={(e)=>{ 
+                    save(e, autor, categories, title)
+                    setAutor('')
+                    setCategories('')
+                    setTitle('')
+                    }}>
                     {renderTable()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Salvar" type="submit"/>

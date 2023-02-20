@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import RegistersInterface from '@/core/RegistersInterface';
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
@@ -44,7 +43,7 @@ export const fetchData = async (setRecords: any) => {
             categories
         });
     });
-    setRecords(data)
+    setRecords(data);
 };
 
 export const update = async (id: any, event: any, autor:any, categories: any, title:any, router: any) => {
