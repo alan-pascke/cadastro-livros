@@ -26,38 +26,33 @@ export default function Table() {
         const hendleSearch = async () => {
             const data : RegistersInterface[] = [];
 
+            function dataPush(doc: any){
+                const {title, autor, categories} = doc.data();
+                data.push({
+                id: doc.id,
+                    title,
+                    autor,
+                    categories,
+                })
+            }
+
             //busca pelo titulo
             const querySnapshotTitle = await getDocs(query(collection(db, 'records'), where('title', '==', searchBook)));
             querySnapshotTitle?.docs.map((doc) => {
-            const {title, autor, categories} = doc.data();
-            data.push({
-            id: doc.id,
-                title,
-                autor,
-                categories,
-            })});
+                dataPush(doc)
+            });
 
             //busca pelo autor
             const querySnapshotAutor = await getDocs(query(collection(db, 'records'), where('autor', '==', searchBook)));
             querySnapshotAutor?.docs.map((doc) => {
-            const {title, autor, categories} = doc.data();
-            data.push({
-            id: doc.id,
-                title,
-                autor,
-                categories,
-            })});
+                dataPush(doc)
+            });
 
             //busca pela categoria
             const querySnapshotCategories = await getDocs(query(collection(db, 'records'), where('categories', '==', searchBook)));
             querySnapshotCategories?.docs.map((doc) => {
-            const {title, autor, categories} = doc.data();
-            data.push({
-            id: doc.id,
-                title,
-                autor,
-                categories,
-            })});
+                dataPush(doc)
+            });
 
             setFoundBooks(data);
         };
