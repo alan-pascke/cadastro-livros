@@ -1,75 +1,29 @@
 import { useEffect, useState } from "react";
 import { iconeEdicao, iconeLixo, iconePesquisa } from "./Icons"
 import RegistersInterface from "@/core/RegistersInterface";
-import { useRouter } from "next/router";
-import { stringify } from "querystring";
-import { deleteBook, fetchData } from "services/bookServices";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "services/firebase";
+import { deleteBook, fetchData, hendleSearch } from "services/bookServices";
 
 
-export default function Table() {
+
+interface TableInterface{
+    hendleClick: any
+}
+
+export default function Table(props: TableInterface) {
 
     const [records, setRecords] = useState<RegistersInterface[]>([]);
     const [searchBook, setSearchBook] = useState('');
     const [foundBooks, setFoundBooks] = useState<RegistersInterface[]>([]);
 
+
     useEffect(() => {
         fetchData(setRecords);
     }, []);
 
-    
-       
-    const router = useRouter();
-
-    useEffect(()=>{
-        const hendleSearch = async () => {
-            const data : RegistersInterface[] = [];
-
-            function dataPush(doc: any){
-                const {title, autor, categories} = doc.data();
-                data.push({
-                id: doc.id,
-                    title,
-                    autor,
-                    categories,
-                })
-            }
-
-            //busca pelo titulo
-            const querySnapshotTitle = await getDocs(query(collection(db, 'records'), where('title', '==', searchBook)));
-            querySnapshotTitle?.docs.map((doc) => {
-                dataPush(doc)
-            });
-
-            //busca pelo autor
-            const querySnapshotAutor = await getDocs(query(collection(db, 'records'), where('autor', '==', searchBook)));
-            querySnapshotAutor?.docs.map((doc) => {
-                dataPush(doc)
-            });
-
-            //busca pela categoria
-            const querySnapshotCategories = await getDocs(query(collection(db, 'records'), where('categories', '==', searchBook)));
-            querySnapshotCategories?.docs.map((doc) => {
-                dataPush(doc)
-            });
-
-            setFoundBooks(data);
-        };
-        hendleSearch();
-    });
-
-
-    
-    const hendleClick = (record: RegistersInterface) =>{
-        const query = stringify({
-            id: record.id,
-            title: record.title,
-            autor: record.autor,
-            categories: record.categories
-        })
-        router.push(`/register_books/?${query}`);
-    }; 
+    useEffect(()=>{  
+        hendleSearch(searchBook,setFoundBooks);
+    },[searchBook, setFoundBooks]);
+ 
 
     function renderHeader(){
         return(
@@ -92,7 +46,7 @@ export default function Table() {
                 <td className="col-span-2 items-center flex justify-evenly ">
                     <button 
                         onClick={() => {
-                        hendleClick(record)
+                        props.hendleClick(record)
                         }}
                         className="hover:rounded-full hover:bg-green-500 p-1"
                         name="editar"

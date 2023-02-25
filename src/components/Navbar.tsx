@@ -11,7 +11,7 @@ export default function Navbar(){
                     <Link href={'/register_books'}>Adicionar Livros</Link>
                 </div>
                 <div className="whitespace-nowrap hover:text-white">
-                    <Link href={'/book_research'}>Buscar Livros</Link>
+                    <Link href={'/find_books'}>Buscar Livros</Link>
                 </div>
         </div>
     )

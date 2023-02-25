@@ -1,5 +1,5 @@
 import RegistersInterface from '@/core/RegistersInterface';
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "./firebase";
 
 
@@ -61,3 +61,37 @@ export const update = async (id: any, event: any, autor:any, categories: any, ti
         alert("Error updating document: " + error);
     }
 }
+
+export const hendleSearch = async (searchBook: string, setFoundBooks: any) => {
+    const data : RegistersInterface[] = [];
+
+    function dataPush(doc: any){
+        const {title, autor, categories} = doc.data();
+        data.push({
+        id: doc.id,
+            title,
+            autor,
+            categories,
+        })
+    }
+
+    //busca pelo titulo
+    const querySnapshotTitle = await getDocs(query(collection(db, 'records'), where('title', '==', searchBook)));
+    querySnapshotTitle?.docs.map((doc) => {
+        dataPush(doc)
+    });
+
+    //busca pelo autor
+    const querySnapshotAutor = await getDocs(query(collection(db, 'records'), where('autor', '==', searchBook)));
+    querySnapshotAutor?.docs.map((doc) => {
+        dataPush(doc)
+    });
+
+    //busca pela categoria
+    const querySnapshotCategories = await getDocs(query(collection(db, 'records'), where('categories', '==', searchBook)));
+    querySnapshotCategories?.docs.map((doc) => {
+        dataPush(doc)
+    });
+
+    setFoundBooks(data);
+};

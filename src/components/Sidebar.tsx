@@ -79,7 +79,7 @@ export default function Sidebar(props: sidebarProps){
                                 >Adicionar Livros
                             </div>
                         </Link>
-                        <Link href={'/book_research'}>
+                        <Link href={'/find_books'}>
                             <div className="pl-4 pt-4 pb-4 text-xl hover:shadow-[0_2px_10px_#92B6F1]"
                                 >Buscar Livros
                             </div>

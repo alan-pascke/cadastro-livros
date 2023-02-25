@@ -8,9 +8,17 @@ export default function Form(){
 
     const router = useRouter();
 
-    const [title, setTitle] = useState(router.query.title || '');
-    const [autor, setAutor] = useState(router.query.autor || '');
-    const [categories, setCategories] = useState(router.query.categories || '')
+    var data = null
+    if (router.query.data && typeof router.query.data === 'string') {
+        data = JSON.parse(router.query.data)
+        console.log(data.title);
+    }
+
+
+    const [title, setTitle] = useState(data.title || '');
+    const [autor, setAutor] = useState(data.autor || '');
+    const [categories, setCategories] = useState(data.categories || '')
+    
 
     function renderTable(){
         return(
@@ -54,15 +62,7 @@ export default function Form(){
     return(
         <div>
             {router.query.id? (
-                <form onSubmit={(event) =>update(router.query.id, event, autor, categories, title, router)}>
-                        <Input 
-                            label="ID"
-                            type='text'
-                            value={router.query.id}
-                            disable
-                            styles="bg-gray-300"
-                            >                            
-                        </Input>                       
+                <form onSubmit={(event) =>update(router.query.id, event, autor, categories, title, router)}>                     
                     {renderTable()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Atualizar" type="submit"/>
