@@ -1,15 +1,14 @@
 import Layout from "@/components/Layout";
-import Table from "@/components/Table";
+import BooksList from "@/components/BooksList";
 import RegistersInterface from "@/core/RegistersInterface";
 import axios from 'axios'
 import { useRouter } from "next/router";
-import { stringify } from "querystring";
 
 export default function BuscarLivros(){
 
     const router = useRouter();
     
-    const hendleClick = async (record: RegistersInterface) =>{
+    const hendleClick = async (record: RegistersInterface) => {
 
         const data = {
             id: record.id,
@@ -19,7 +18,6 @@ export default function BuscarLivros(){
         }
         try {
             const response = await axios.post('/api/hendlerData/?', data)
-            console.log(response.data);
             router.push({pathname: `/register_books`, query: {data: JSON.stringify(response.data)}});
         } catch (error) {
             
@@ -31,7 +29,7 @@ export default function BuscarLivros(){
         <div>
             <Layout>
                <div className="grid justify-center text-center m-[10px_10px]">
-                   <Table hendleClick={hendleClick}/>
+                   <BooksList hendleClick={hendleClick}/>
                </div>
            </Layout>
         </div>

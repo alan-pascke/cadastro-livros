@@ -1,23 +1,46 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { save, update } from "services/bookServices";
 import Button from "./Button";
 import Input from "./Input";
+import axios from 'axios'
 
-export default function Form(){
+interface Data  {
+    id: string, 
+    title: string, 
+    autor: string, 
+    categories: string
+  }
+
+export default function RegisterForm() {
 
     const router = useRouter();
 
-    var data = null
-    if (router.query.data && typeof router.query.data === 'string') {
-        data = JSON.parse(router.query.data)
-        console.log(data.title);
-    }
+    const [id, setid] = useState('');
+    const [title, setTitle] = useState('');
+    const [autor, setAutor] = useState('');
+    const [categories, setCategories] = useState('')
 
 
-    const [title, setTitle] = useState(data.title || '');
-    const [autor, setAutor] = useState(data.autor || '');
-    const [categories, setCategories] = useState(data.categories || '')
+
+    useEffect(() => {
+        const fetchDataFromApi = async () => {
+             
+            const data = JSON.parse(router.query.data as string)
+            setid(data.id)
+            setTitle(data.title)
+            setAutor(data.autor);
+            setCategories(data.categories) 
+            
+        };
+        router.query.data ? fetchDataFromApi() : false;
+    }, [router]);
+    
+
+    // if (router.query.data && typeof router.query.data === 'string') {
+    //     data = JSON.parse(router.query.data)
+    //     console.log(data.title);
+    // }
     
 
     function renderTable(){
@@ -26,14 +49,14 @@ export default function Form(){
                 <Input 
                     label="Título*"
                     type="text"
-                    value={title}
+                    value={title || '' }
                     onChange={(e: any) => {setTitle( e.target.value)}}
                     required
                 />
                 <Input 
                     label="Autor*" 
                     type="text" 
-                    value={autor} 
+                    value={autor || '' } 
                     onChange={(e: any) => {setAutor(e.target.value)}}
                     required
                 />
@@ -42,7 +65,7 @@ export default function Form(){
                     <select 
                         id="categorias"  
                         name="Categorias" 
-                        value={categories}
+                        value={categories || '' }
                         onChange={(e: any) => {setCategories(e.target.value)}}
                         required
                         className="
@@ -61,8 +84,11 @@ export default function Form(){
 
     return(
         <div>
-            {router.query.id? (
-                <form onSubmit={(event) =>update(router.query.id, event, autor, categories, title, router)}>                     
+            {id? (
+                <form onSubmit={(event) => {
+                    update(id, event, autor, categories, title, router)
+                    router.push('/find_books')
+                    }}>                     
                     {renderTable()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Atualizar" type="submit"/>

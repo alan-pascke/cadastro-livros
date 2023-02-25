@@ -8,7 +8,6 @@ interface buttonInterface{
 
 export default function Button(props: buttonInterface){
 
-    const color = props.color
     return(
         <div>
             <button className={`

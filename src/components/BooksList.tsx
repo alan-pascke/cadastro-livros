@@ -9,7 +9,7 @@ interface TableInterface{
     hendleClick: any
 }
 
-export default function Table(props: TableInterface) {
+export default function BooksList(props: TableInterface) {
 
     const [records, setRecords] = useState<RegistersInterface[]>([]);
     const [searchBook, setSearchBook] = useState('');
@@ -80,7 +80,6 @@ export default function Table(props: TableInterface) {
                 <div className="bg-gray-400 p-1 rounded-r-xl">{iconePesquisa}</div>
             </div>            
             <table className="overflow-hidden rounded-md mb-16">
-
                 <thead className="
                     text-lg 
                     bg-[#04042a]
@@ -88,10 +87,10 @@ export default function Table(props: TableInterface) {
                     {renderHeader()}
                     
                 </thead>
+
                 <tbody className="bg-blue-600">
                     {searchBook == ''? records.map((record) => renderBody(record)) 
                         : (foundBooks.map((record) => renderBody(record)))}
-
                 </tbody>
             </table>
         </div>

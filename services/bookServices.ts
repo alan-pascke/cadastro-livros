@@ -56,7 +56,7 @@ export const update = async (id: any, event: any, autor:any, categories: any, ti
             title: title,
         });
         alert('Document was upadate')
-        router.push('/book_research')
+
     } catch (error) {
         alert("Error updating document: " + error);
     }
