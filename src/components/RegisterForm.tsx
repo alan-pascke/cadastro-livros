@@ -43,7 +43,7 @@ export default function RegisterForm() {
     // }
     
 
-    function renderTable(){
+    function renderForm(){
         return(
             <div>
                 <Input 
@@ -89,7 +89,7 @@ export default function RegisterForm() {
                     update(id, event, autor, categories, title, router)
                     router.push('/find_books')
                     }}>                     
-                    {renderTable()}
+                    {renderForm()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Atualizar" type="submit"/>
                     </div>
@@ -101,7 +101,7 @@ export default function RegisterForm() {
                     setCategories('')
                     setTitle('')
                     }}>
-                    {renderTable()}
+                    {renderForm()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Salvar" type="submit"/>
                     </div>
