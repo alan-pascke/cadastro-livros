@@ -5,11 +5,11 @@ import { deleteBook, fetchData, hendleSearch } from "services/bookServices";
 
 
 
-interface TableInterface{
+interface BookListInterface{
     hendleClick: any
 }
 
-export default function BooksList(props: TableInterface) {
+export default function BooksList(props: BookListInterface) {
 
     const [records, setRecords] = useState<RegistersInterface[]>([]);
     const [searchBook, setSearchBook] = useState('');

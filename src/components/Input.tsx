@@ -1,12 +1,13 @@
 interface InputProps{
-    type: 'text' | 'number';
+    type: 'text' | 'number' | 'file';
     styles?: string
     value?: any
     label: string
     onChange?: any
     required?: true
     children?: any
-    disable?: true
+    accept?: any
+    id?: string
 }
 
 export default function Input(props: InputProps){
@@ -14,18 +15,17 @@ export default function Input(props: InputProps){
         <div className="text-black grid grid-cols-1">
             <label className="text-start text-blue-500">{props.label}</label>
             <input
+                id={props.id}
                 type={props.type} 
                 className={`
                         rounded-md mb-4 px-3
-                        outline-none 
+                        outline-none
                         {${props.styles? props.styles : 'bg-white'}}  
                     `}
                 value={props.value}
                 onChange={props.onChange}
                 required={props.required}
-                disabled={props.disable}
-
-
+                accept={props.accept}
             />
         </div>       
     )

@@ -1,25 +1,23 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { save, update } from "services/bookServices";
+import { save, update, hendleUploadImage } from "services/bookServices";
 import Button from "./Button";
+import { iconeNuvem } from "./Icons";
 import Input from "./Input";
-import axios from 'axios'
 
-interface Data  {
-    id: string, 
-    title: string, 
-    autor: string, 
-    categories: string
-  }
 
 export default function RegisterForm() {
+
 
     const router = useRouter();
 
     const [id, setid] = useState('');
     const [title, setTitle] = useState('');
     const [autor, setAutor] = useState('');
-    const [categories, setCategories] = useState('')
+    const [categories, setCategories] = useState('');
+    const [image, setImage] = useState('');
+    const [urlImage, setUrlImage] = useState('');
+
 
 
 
@@ -30,19 +28,13 @@ export default function RegisterForm() {
             setid(data.id)
             setTitle(data.title)
             setAutor(data.autor);
-            setCategories(data.categories) 
-            
+            setCategories(data.categories)
+            setUrlImage(data.urlImage)
         };
         router.query.data ? fetchDataFromApi() : false;
     }, [router]);
     
-
-    // if (router.query.data && typeof router.query.data === 'string') {
-    //     data = JSON.parse(router.query.data)
-    //     console.log(data.title);
-    // }
     
-
     function renderForm(){
         return(
             <div>
@@ -50,45 +42,83 @@ export default function RegisterForm() {
                     label="Título*"
                     type="text"
                     value={title || '' }
-                    onChange={(e: any) => {setTitle( e.target.value)}}
+                    onChange={(e: any) => setTitle( e.target.value)}
                     required
                 />
                 <Input 
                     label="Autor*" 
                     type="text" 
                     value={autor || '' } 
-                    onChange={(e: any) => {setAutor(e.target.value)}}
+                    onChange={(e: any) => setAutor(e.target.value)}
                     required
                 />
-                <div className="grid grid-cols-1">
+                <div className="grid grid-cols-1 text-start">
                     <label className="text-blue-500">Categoria*</label>
                     <select 
                         id="categorias"  
                         name="Categorias" 
                         value={categories || '' }
-                        onChange={(e: any) => {setCategories(e.target.value)}}
+                        onChange={(e: any) => setCategories(e.target.value)}
                         required
                         className="
                             bg-white text-black
-                            rounded-md mb-4 h-[1.6rem]
+                            rounded-md mb-4 pl-2 h-[1.6rem]
                             outline-none ">
                         <option value="" disabled>Selecione</option>
                         <option value="adm-negocios">Adm. & Negócios</option>
                         <option value="computacao">Computação</option>
                         <option value="saude">Saúde</option>
                     </select>
-                </div>                
+                </div>
+                <div className="text-start grid grid-cols-1">
+                    <label className="text-blue-500">Imagem</label>
+                                
+                </div>
+                <div className="flex items-center justify-center w-full">
+                    <label className="flex flex-col items-center justify-center w-full h-28 border-2 border-blue-500 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-blue-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    
+                        <div className="flex flex-col items-center justify-center">
+                            {iconeNuvem}
+                            {!image ? (
+                                <div>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        <span className="font-semibold">Click to upload
+                                        </span> 
+                                        <span> or drag and drop </span>
+                                    </p>    
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">JEPG, PNG, JPG</p>
+                                </div>
+                            ) : ( 
+                                <p>{image}</p> 
+                                )
+                            }
+                        </div>
+                      
+                        <input
+                        className="hidden"
+                        type="file" 
+                        value={image}
+                        onChange={(e: any)=> {
+                            setImage(e.target.value)
+                            const file = e.target.files[0];
+                            hendleUploadImage(e, file, setUrlImage);
+                        }}
+                        accept='.png, .jpeg, .jpg'
+                        />
+                        </label>
+                        </div> 
+
             </div>
         )
     }
-
+    
     return(
         <div>
             {id? (
                 <form onSubmit={(event) => {
-                    update(id, event, autor, categories, title, router)
+                    update(id, event, autor, categories, title, urlImage)
                     router.push('/find_books')
-                    }}>                     
+                }}>                     
                     {renderForm()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Atualizar" type="submit"/>
@@ -96,7 +126,7 @@ export default function RegisterForm() {
                 </form>
             ) : (
                 <form onSubmit={(e)=>{ 
-                    save(e, autor, categories, title)
+                    save(e, autor, categories, title, urlImage)
                     setAutor('')
                     setCategories('')
                     setTitle('')

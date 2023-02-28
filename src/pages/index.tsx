@@ -17,6 +17,7 @@ export default function Home(){
           </div>
 
           <div className="grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 p-[50px_36px_0_36px]">
+            
             <Cards title="Livro" imgSrc={imageCard}></Cards>
             <Cards title="Livro" imgSrc={imageCard}></Cards>
             <Cards title="Livro" imgSrc={imageCard}></Cards>

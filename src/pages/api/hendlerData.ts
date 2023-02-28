@@ -5,8 +5,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default function handler(req: NextApiRequest, res: NextApiResponse
 )  {
   
-  const {id, title, autor, categories} = req.body
-  const responseData = {id, title, autor, categories}
+  const {id, title, autor, categories, urlImage} = req.body
+  const responseData = {id, title, autor, categories, urlImage}
   
   res.status(200).json(responseData)
   

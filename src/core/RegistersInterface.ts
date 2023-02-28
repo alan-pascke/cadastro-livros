@@ -3,4 +3,5 @@ export default interface RegistersInterface{
     title: string
     autor: string
     categories: string
+    urlImage: string
 }
