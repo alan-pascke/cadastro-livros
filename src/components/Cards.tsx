@@ -7,16 +7,16 @@ interface cardsProps{
 
 export default function Cards(props: cardsProps){
     return(
-        <div className="grid justify-center text-center">
-            <div className="grid grid-cols-1 justify-center  mb-7 p-2 rounded-lg overflow-hidden hover:bg-[#14147c] hover:text-white hover:scale-110 transition">
-                <Image src='https://firebasestorage.googleapis.com/v0/b/projeto-biblioteca-18cf0.appspot.com/o/images%2Fbook-logo1.png?alt=media&token=26056300-85d4-47cc-ae1a-dd41fdd053ab' 
-                    width={200} 
-                    height={200} 
+        <div className="grid grid-cols-1 rounded-lg hover:bg-[#14147c] hover:text-white hover:scale-110 transition w-52 m-2">
+            <div className="p-[2px_4px_0px_4px] flex justify-center">
+                <Image src={props.imgSrc}
+                    width={500} 
+                    height={500} 
                     alt='capa do livro'
-                    className="bg-white rounded-md"
+                    className="bg-white rounded-md w-52 h-52"
                     />
-                <h1>{props.title}</h1>
             </div>
+            <h1 className="flex justify-center items-center pt-1 pb-1">{props.title}</h1>
         </div>
     )
 }

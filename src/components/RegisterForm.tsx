@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { save, update, hendleUploadImage } from "services/bookServices";
 import Button from "./Button";
-import { iconeNuvem } from "./Icons";
+import { iconeNuvem } from "../icons/Icons";
 import Input from "./Input";
 
 
@@ -105,9 +105,8 @@ export default function RegisterForm() {
                         }}
                         accept='.png, .jpeg, .jpg'
                         />
-                        </label>
-                        </div> 
-
+                    </label>
+                </div> 
             </div>
         )
     }

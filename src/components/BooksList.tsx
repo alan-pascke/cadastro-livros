@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { iconeEdicao, iconeLixo, iconePesquisa } from "./Icons"
+import { iconeEdicao, iconeLixo, iconePesquisa } from "../icons/Icons"
 import RegistersInterface from "@/core/RegistersInterface";
 import { deleteBook, fetchData, hendleSearch } from "services/bookServices";
 
@@ -89,8 +89,10 @@ export default function BooksList(props: BookListInterface) {
                 </thead>
 
                 <tbody className="bg-blue-600">
-                    {searchBook == ''? records.map((record) => renderBody(record)) 
-                        : (foundBooks.map((record) => renderBody(record)))}
+                    {searchBook == '' ? records.map((record) => 
+                    renderBody(record)
+                    ) : (
+                    foundBooks.map((record) => renderBody(record)))}
                 </tbody>
             </table>
         </div>

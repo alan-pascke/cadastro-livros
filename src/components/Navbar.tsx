@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { iconeSetaParaBaixo } from "./Icons"
+import { iconeSetaParaBaixo } from "../icons/Icons"
 
 export default function Navbar(){
     return(

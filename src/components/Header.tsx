@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { iconeMenu, iconePesquisa } from "./Icons";
+import { iconeMenu, iconePesquisa } from "../icons/Icons";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Logo from "/public/images/book-logo2.png"

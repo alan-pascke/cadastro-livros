@@ -11,7 +11,7 @@ export default function Layout(props: layoutProps){
                 <Header/>
             </div>
 
-            <div className="flex-col justify-center">
+            <div className="grid justify-around">
                 {props.children}
             </div>
 
