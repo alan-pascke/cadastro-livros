@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { iconeEdicao, iconeLixo, iconePesquisa } from "../icons/Icons"
 import RegistersInterface from "@/core/RegistersInterface";
 import { deleteBook, fetchData, hendleSearch } from "services/bookServices";
+import { iconeEdicao, iconeLixo, iconePesquisa } from "@/components/Icons";
+import SearchBar from "./SearchBar";
 
 
 
@@ -67,8 +68,9 @@ export default function BooksList(props: BookListInterface) {
 
     return(
             
-        <div className="grid grid-cols-1">
-            <div className="flex justify-center m-[50px]">
+        <div className="grid grid-cols-1 text-center items-center">
+            <SearchBar icon={iconePesquisa}/>
+            {/* <div className="flex justify-center m-[50px]">
                 <form className="flex justify-center rounded-l-xl overflow-hidden">
                     <input 
                         type="text" 
@@ -78,8 +80,8 @@ export default function BooksList(props: BookListInterface) {
                         /> 
                 </form>
                 <div className="bg-gray-400 p-1 rounded-r-xl">{iconePesquisa}</div>
-            </div>            
-            <table className="overflow-hidden rounded-md mb-16">
+            </div>             */}
+            <table className="overflow-hidden rounded-md">
                 <thead className="
                     text-lg 
                     bg-[#04042a]

@@ -28,9 +28,9 @@ export default function BuscarLivros(){
     return(
         <div>
             <Layout>
-               <div className="grid justify-center text-center m-[10px_10px]">
+             
                    <BooksList hendleClick={hendleClick}/>
-               </div>
+           
            </Layout>
         </div>
        )

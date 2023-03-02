@@ -1,9 +1,10 @@
 import Layout from "@/components/Layout"
 import Cards from "@/components/Cards"
-import { iconePesquisa } from "@/icons/Icons"
+import { iconePesquisa } from "@/components/Icons"
 import { useEffect, useState } from "react";
 import RegistersInterface from "@/core/RegistersInterface";
 import { fetchData } from "services/bookServices";
+import SearchBar from "@/components/SearchBar";
 
 
 export default function Home(){
@@ -18,17 +19,7 @@ export default function Home(){
   return(
     <div>
       <Layout>
-        <div className="flex justify-center mt-12">
-          <div className="bg-gray-300 border border-gray-300 rounded-xl flex">
-            <button className="m-1">{iconePesquisa}</button>
-            <input 
-              type="text" 
-              placeholder="pesquisar..." 
-              className="outline-none focus:bg-white bg-gray-300 rounded-r-xl xs:w-36 sm:w-72"/>
-              
-          </div>
-        </div>
-
+        <SearchBar icon={iconePesquisa} />
         <div className="grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 pt-8">
           {records.map((record) =>(
             <div key={record.id}>

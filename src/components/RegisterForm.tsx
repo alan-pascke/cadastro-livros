@@ -1,8 +1,9 @@
+import { iconeNuvem } from "@/components/Icons";
+import { OptionsInterface } from "@/core/OptionsInterface";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { save, update, hendleUploadImage } from "services/bookServices";
+import { save, update, hendleUploadImage, fechtOptionsData } from "services/bookServices";
 import Button from "./Button";
-import { iconeNuvem } from "../icons/Icons";
 import Input from "./Input";
 
 
@@ -17,9 +18,15 @@ export default function RegisterForm() {
     const [categories, setCategories] = useState('');
     const [image, setImage] = useState('');
     const [urlImage, setUrlImage] = useState('');
+    const [progress, setProgress] = useState('');
+    const [options, setOptions] = useState<OptionsInterface[]>([])
 
-
-
+    useEffect(()=>{
+        const fetchOptions = async () =>{
+            fechtOptionsData(setOptions)
+        }
+        fetchOptions()
+    },[setOptions])
 
     useEffect(() => {
         const fetchDataFromApi = async () => {
@@ -33,8 +40,9 @@ export default function RegisterForm() {
         };
         router.query.data ? fetchDataFromApi() : false;
     }, [router]);
-    
-    
+
+    console.log("categorias: " + categories);
+
     function renderForm(){
         return(
             <div>
@@ -64,10 +72,11 @@ export default function RegisterForm() {
                             bg-white text-black
                             rounded-md mb-4 pl-2 h-[1.6rem]
                             outline-none ">
-                        <option value="" disabled>Selecione</option>
-                        <option value="adm-negocios">Adm. & Negócios</option>
-                        <option value="computacao">Computação</option>
-                        <option value="saude">Saúde</option>
+                        
+                            <option value="" disabled>Selecione</option>
+                            {options.map((option) => (
+                                <option key={option.id} value={option.label}>{option.label}</option>
+                            ))}
                     </select>
                 </div>
                 <div className="text-start grid grid-cols-1">
@@ -84,12 +93,14 @@ export default function RegisterForm() {
                                     <p className="text-sm text-gray-500 dark:text-gray-400">
                                         <span className="font-semibold">Click to upload
                                         </span> 
-                                        <span> or drag and drop </span>
                                     </p>    
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">JEPG, PNG, JPG</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">JPEG, PNG, JPG</p>
                                 </div>
-                            ) : ( 
-                                <p>{image}</p> 
+                            ) : (
+                                <div>
+                                    {parseInt(progress) + '%'}
+                                    <p>{image}</p> 
+                                </div>
                                 )
                             }
                         </div>
@@ -101,7 +112,7 @@ export default function RegisterForm() {
                         onChange={(e: any)=> {
                             setImage(e.target.value)
                             const file = e.target.files[0];
-                            hendleUploadImage(e, file, setUrlImage);
+                            hendleUploadImage(e, file, setUrlImage, setProgress);
                         }}
                         accept='.png, .jpeg, .jpg'
                         />
@@ -115,7 +126,7 @@ export default function RegisterForm() {
         <div>
             {id? (
                 <form onSubmit={(event) => {
-                    update(id, event, autor, categories, title, urlImage)
+                    update(id, event,  autor.toLocaleUpperCase(), categories.toLocaleUpperCase(), title.toLocaleUpperCase(), urlImage)
                     router.push('/find_books')
                 }}>                     
                     {renderForm()}
@@ -125,7 +136,7 @@ export default function RegisterForm() {
                 </form>
             ) : (
                 <form onSubmit={(e)=>{ 
-                    save(e, autor, categories, title, urlImage)
+                    save(e, autor.toLocaleUpperCase(), categories.toLocaleUpperCase(), title.toLocaleUpperCase(), urlImage)
                     setAutor('')
                     setCategories('')
                     setTitle('')

@@ -6,12 +6,12 @@ interface layoutProps{
 }
 export default function Layout(props: layoutProps){
     return(
-        <div className="flex flex-col h-screen justify-between ">
+        <div className="flex flex-col">
             <div>
                 <Header/>
             </div>
 
-            <div className="grid justify-around">
+            <div className="grid h-screen justify-center">
                 {props.children}
             </div>
 

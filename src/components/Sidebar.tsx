@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { useState } from "react"
-import { iconeMenu, iconeSetaParaBaixo } from "../icons/Icons"
+import { iconeMenu, iconeSetaParaBaixo } from "./Icons"
 
 interface sidebarProps{
     sidebar: any

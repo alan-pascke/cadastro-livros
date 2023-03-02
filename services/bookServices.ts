@@ -1,3 +1,4 @@
+import { OptionsInterface } from './../src/core/OptionsInterface';
 import RegistersInterface from '@/core/RegistersInterface';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
@@ -34,8 +35,7 @@ export const deleteBook = async ({id} : RegistersInterface) => {
 
 export const fetchData = async (setRecords: any) => {
     const data : RegistersInterface[] = [];
-    const booksCol = collection(db, 'records');
-    const bookSnapshot = await getDocs(booksCol);
+    const bookSnapshot = await getDocs(collection(db, 'records'));
     bookSnapshot.forEach((doc)=> {
         const {title, autor, categories, urlImage} = doc.data()
         data.push({
@@ -49,6 +49,22 @@ export const fetchData = async (setRecords: any) => {
     setRecords(data);
 };
 
+export const fechtOptionsData = async (setOptions: any)=>{
+    const data : OptionsInterface [] = []
+    const optionSnapshot = await getDocs(collection(db, 'options'));
+    optionSnapshot.forEach((doc) => {
+        const {value, label} = doc.data()
+        data.push({
+            id: doc.id,
+            value,
+            label
+        })
+    })
+    setOptions(data)
+
+}
+
+
 export const update = async (id: any, event: any, autor:string, categories: string, title:string, urlImage: string) => {
     event.preventDefault();
     try {
@@ -61,7 +77,7 @@ export const update = async (id: any, event: any, autor:string, categories: stri
         alert('Document was upadate')
 
     } catch (error) {
-        alert("Error updating document: " + error);
+        alert("Error updating document: " + error + ' ' + ' Or url not loader');
     }
 }
 
@@ -78,21 +94,22 @@ export const hendleSearch = async (searchBook: string, setFoundBooks: any) => {
             urlImage,
         })
     }
-
+    
     //busca pelo titulo
-    const querySnapshotTitle = await getDocs(query(collection(db, 'records'), where('title', '==', searchBook)));
+    const querySnapshotTitle = await getDocs(query(collection(db, 'records'), where('title', '==', searchBook.toUpperCase())));
     querySnapshotTitle?.docs.map((doc) => {
         dataPush(doc)
     });
 
+
     //busca pelo autor
-    const querySnapshotAutor = await getDocs(query(collection(db, 'records'), where('autor', '==', searchBook)));
+    const querySnapshotAutor = await getDocs(query(collection(db, 'records'), where('autor', '==', searchBook.toUpperCase())));
     querySnapshotAutor?.docs.map((doc) => {
         dataPush(doc)
     });
 
     //busca pela categoria
-    const querySnapshotCategories = await getDocs(query(collection(db, 'records'), where('categories', '==', searchBook)));
+    const querySnapshotCategories = await getDocs(query(collection(db, 'records'), where('categories', '==', searchBook.toUpperCase())));
     querySnapshotCategories?.docs.map((doc) => {
         dataPush(doc)
     });
@@ -100,7 +117,7 @@ export const hendleSearch = async (searchBook: string, setFoundBooks: any) => {
     setFoundBooks(data);
 };
 
-export async function hendleUploadImage (event: React.ChangeEvent<HTMLInputElement> , file: any, setUrlImage: any) {
+export async function hendleUploadImage (event: React.ChangeEvent<HTMLInputElement> , file: any, setUrlImage: any, setProgress: any) {
     const files = event.target.files
     if (files && files.length > 0){
         
@@ -108,16 +125,8 @@ export async function hendleUploadImage (event: React.ChangeEvent<HTMLInputEleme
         const uploadTask =  uploadBytesResumable(storageRef, file )
         
         uploadTask.on('state_changed',(snapshot) =>{
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-            switch (snapshot.state) {
-                case 'paused':
-                console.log('Upload is paused');
-                break;
-                case 'running':
-                console.log('Upload is running');
-                break;
-            }
+            const progress =  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setProgress(progress);
         },(error) => {
             alert(error);
         }, ()=>{
