@@ -34,8 +34,7 @@ export default function Sidebar(props: sidebarProps){
 
     function sidebarContent(style?: string){
         return(
-            <div className="absolute top-0">
-
+            <div className="absolute top-0 left-0">
                 <div id="sidebar" className={`
                         h-full
                         w-64 z-40

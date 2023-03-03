@@ -6,16 +6,16 @@ interface layoutProps{
 }
 export default function Layout(props: layoutProps){
     return(
-        <div className="flex flex-col">
-            <div>
+        <div className="grid grid-rows-1">
+            <div className="row-span-1 h-20">
                 <Header/>
             </div>
 
-            <div className="grid h-screen justify-center">
+            <div className="row-span-1 flex flex-col h-screen">
                 {props.children}
             </div>
 
-            <div>
+            <div className="row-span-1">
                 <Footer></Footer>
             </div>
         </div>

@@ -19,14 +19,18 @@ export default function Home(){
   return(
     <div>
       <Layout>
-        <SearchBar icon={iconePesquisa} />
-        <div className="grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 pt-8">
-          {records.map((record) =>(
-            <div key={record.id}>
-              <Cards title={record.title} imgSrc={record.urlImage}></Cards>
-            </div>
-          ))}
-        </div>        
+        <div className="grid grid-rows-6 justify-center items-center">
+          <div className="row-span-1">
+            <SearchBar icon={iconePesquisa} />
+          </div>
+          <div className="row-span-5 grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 items-center pt-8">
+            {records.map((record) =>(
+              <div key={record.id}>
+                <Cards title={record.title} imgSrc={record.urlImage}></Cards>
+              </div>
+            ))}
+          </div>        
+        </div>
       </Layout>
     </div>
   )

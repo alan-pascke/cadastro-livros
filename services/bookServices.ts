@@ -81,7 +81,7 @@ export const update = async (id: any, event: any, autor:string, categories: stri
     }
 }
 
-export const hendleSearch = async (searchBook: string, setFoundBooks: any) => {
+export const hendleSearchBooks = async (searchBook: string, setFoundBooks: any) => {
     const data : RegistersInterface[] = [];
 
     function dataPush(doc: any){

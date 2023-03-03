@@ -28,9 +28,7 @@ export default function BuscarLivros(){
     return(
         <div>
             <Layout>
-             
-                   <BooksList hendleClick={hendleClick}/>
-           
+                <BooksList hendleClick={hendleClick}/>
            </Layout>
         </div>
        )

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { iconeMenu, iconePesquisa } from "./Icons";
+import { iconeMenu } from "./Icons";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Logo from "/public/images/book-logo2.png"
@@ -19,8 +19,8 @@ export default function Header(){
     }
    
     return(
-        <div className="bg-[#04042a]">
-            <div className="items-center grid grid-cols-12">
+        <div className="bg-[#04042a] h-20 flex items-center">
+            <div className="grid grid-cols-12 items-center">
                 <div className="flex col-span-5 ml-5 items-center">
                     <button 
                         className="col-span-1 px-1.5 py-1.5 hover:rounded-full rounded-full transition hover:bg-white hover:rotate-90 hover:transition 
@@ -38,10 +38,10 @@ export default function Header(){
                 <div className="
                     col-span-6 
                     flex justify-end text-center items-center
-                    h-20 xs:p-9
+                    h-20 cell:p-9
                     font-bold
                     ">
-                    <div className={`xm:visible xs:invisible justify-self-center inline`}>
+                    <div className={`xm:visible cell:invisible`}>
                             <Navbar/>
                     </div>
                 </div>
