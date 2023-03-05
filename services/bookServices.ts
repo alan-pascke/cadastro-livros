@@ -1,7 +1,7 @@
 import { OptionsInterface } from './../src/core/OptionsInterface';
 import RegistersInterface from '@/core/RegistersInterface';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { db , storage } from "./firebase";
 
 

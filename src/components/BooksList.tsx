@@ -3,7 +3,9 @@ import RegistersInterface from "@/core/RegistersInterface";
 import { deleteBook, fetchData, hendleSearchBooks } from "services/bookServices";
 import { iconeEdicao, iconeLixo, iconePesquisa } from "@/components/Icons";
 import SearchBar from "./SearchBar";
-
+import Button from "./Button";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 
 interface BookListInterface{
@@ -15,6 +17,8 @@ export default function BooksList(props: BookListInterface) {
     const [records, setRecords] = useState<RegistersInterface[]>([]);
     const [searchBook, setSearchBook] = useState('');
     const [foundBooks, setFoundBooks] = useState<RegistersInterface[]>([]);
+
+    const router = useRouter()
 
 
     useEffect(() => {
@@ -77,37 +81,35 @@ export default function BooksList(props: BookListInterface) {
         )
     }
 
+    function navigationToNextPage(){
+        router.push('register_books/')
+    }
+
     return(
         <div className="grid grid-rows-6 justify-center items-center mt-[0.65rem]">
             <div className="row-span-1">
-                <SearchBar icon={iconePesquisa}/>
+                <SearchBar icon={iconePesquisa} setItem={setSearchBook}/>
             </div>
-            {/* <div className="flex justify-center m-[50px]">
-                <form className="flex justify-center rounded-l-xl overflow-hidden">
-                    <input 
-                        type="text" 
-                        placeholder="pesquisar..." className="text-black outline-none bg-gray-300 pl-5 xs:w-36 sm:w-72"
-                        value={searchBook}
-                        onChange={(e)=> setSearchBook(e.target.value)}
-                        /> 
-                </form>
-                <div className="bg-gray-400 p-1 rounded-r-xl">{iconePesquisa}</div>
-            </div>             */}
-            <table className="row-span-5 overflow-hidden rounded-md mx-4 min-w-[470px] mt-8 text-center">
-                <thead className="
-                    text-lg
-                    bg-[#04042a]
-                    ">
-                    {renderHeader()}
-                    
-                </thead>
-                <tbody className="bg-blue-600 text-sm text-white">
-                    {searchBook == '' ? records.map((record) => 
-                    renderBody(record)
-                    ) : (
-                    foundBooks.map((record) => renderBody(record)))}
-                </tbody>
-            </table>
+            <div className="row-span-5">
+                <div className="flex justify-end">
+                    <Button text="+" color="bg-blue-500" action={navigationToNextPage}/>
+                </div>
+                <table className="overflow-hidden rounded-md min-w-[470px] mt-8 text-center">
+                    <thead className="
+                        text-lg
+                        bg-[#04042a]
+                        ">
+                        {renderHeader()}
+                        
+                    </thead>
+                    <tbody className="bg-blue-600 text-sm text-white">
+                        {searchBook == '' ? records.map((record) => 
+                        renderBody(record)
+                        ) : (
+                            foundBooks.map((record) => renderBody(record)))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

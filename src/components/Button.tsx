@@ -21,9 +21,11 @@ export default function Button(props: buttonInterface){
                     hover:scale-110
                 `}
                     type={props.type}
+                    onClick={props.action}
                 >
                 {props.icon}
                 {props.text}
+                
             </button>
         </div>
     )

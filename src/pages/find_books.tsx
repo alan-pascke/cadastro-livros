@@ -20,9 +20,8 @@ export default function BuscarLivros(){
             const response = await axios.post('/api/hendlerData/?', data)
             router.push({pathname: `/register_books`, query: {data: JSON.stringify(response.data)}});
         } catch (error) {
-            
+            alert(error)
         }
-        
     }; 
 
     return(

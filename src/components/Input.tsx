@@ -1,5 +1,5 @@
 interface InputProps{
-    type: 'text' | 'number' | 'file';
+    type: 'text' | 'number' | 'file' | 'password';
     styles?: string
     value?: any
     label: string
