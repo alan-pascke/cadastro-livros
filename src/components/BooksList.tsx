@@ -86,7 +86,7 @@ export default function BooksList(props: BookListInterface) {
     }
 
     return(
-        <div className="grid grid-rows-6 justify-center items-center mt-[0.65rem]">
+        <div className="grid grid-rows-6 justify-center items-center mt-[0.65rem] mx-[4%]">
             <div className="row-span-1">
                 <SearchBar icon={iconePesquisa} setItem={setSearchBook}/>
             </div>
@@ -94,7 +94,7 @@ export default function BooksList(props: BookListInterface) {
                 <div className="flex justify-end">
                     <Button text="+" color="bg-blue-500" action={navigationToNextPage}/>
                 </div>
-                <table className="overflow-hidden rounded-md min-w-[470px] mt-8 text-center">
+                <table className="overflow-hidden rounded-md min-w-[300px] mt-8 text-center">
                     <thead className="
                         text-lg
                         bg-[#04042a]

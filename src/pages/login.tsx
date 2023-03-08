@@ -24,6 +24,7 @@ export default function Login(){
                 </div>
                 <div className="flex mt-9 justify-center">
                     <h2>OU ENTRE COM:</h2>
+                    
                 </div>
             </div>
         </div>
