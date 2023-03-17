@@ -41,8 +41,6 @@ export default function RegisterForm() {
         router.query.data ? fetchDataFromApi() : false;
     }, [router]);
 
-    console.log("categorias: " + categories);
-
     function renderForm(){
         return(
             <div>
@@ -126,8 +124,13 @@ export default function RegisterForm() {
         <div>
             {id? (
                 <form onSubmit={(event) => {
-                    update(id, event,  autor.toLocaleUpperCase(), categories.toLocaleUpperCase(), title.toLocaleUpperCase(), urlImage)
-                    router.push('/find_books')
+                    event.preventDefault()
+                    if (image == '') { 
+                        confirm('Adicione uma imagem')
+                    } else{
+                        update(id, event,  autor.toLocaleUpperCase(), categories.toLocaleUpperCase(), title.toLocaleUpperCase(), urlImage)
+                        router.push('/find_books')
+                    }
                 }}>                     
                     {renderForm()}
                     <div className="flex justify-center mt-8">
@@ -135,12 +138,17 @@ export default function RegisterForm() {
                     </div>
                 </form>
             ) : (
-                <form onSubmit={(e)=>{ 
-                    save(e, autor.toLocaleUpperCase(), categories.toLocaleUpperCase(), title.toLocaleUpperCase(), urlImage)
-                    setAutor('')
-                    setCategories('')
-                    setTitle('')
-                    }}>
+                <form onSubmit={(event)=>{ 
+                    event.preventDefault()
+                    if (image == '') { 
+                        confirm('Adicione uma imagem')
+                    } else {
+                        save(event, autor.toLocaleUpperCase(), categories.toLocaleUpperCase(), title.toLocaleUpperCase(), urlImage)
+                        setAutor('')
+                        setCategories('')
+                        setTitle('')
+                        setImage('')
+                    }}}>
                     {renderForm()}
                     <div className="flex justify-center mt-8">
                         <Button color="bg-green-500" text="Salvar" type="submit"/>

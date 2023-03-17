@@ -7,16 +7,20 @@ interface layoutProps{
 export default function Layout(props: layoutProps){
     return(
         <div className="grid grid-rows-1">
-            <div className="row-span-1 h-20">
+            <header className="row-span-1">
                 <Header/>
-            </div>
+            </header>
 
             <div className="row-span-1 flex flex-col h-screen">
-                {props.children}
+                <article>
+                    {props.children}
+                </article>
             </div>
 
             <div className="row-span-1">
-                <Footer></Footer>
+                <footer>
+                    <Footer></Footer>
+                </footer>
             </div>
         </div>
     )

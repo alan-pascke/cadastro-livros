@@ -1,33 +1,40 @@
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { iconeMenu, iconeSetaParaBaixo } from "./Icons"
+import { fetchData } from "services/bookServices";
+import RegistersInterface from "@/core/RegistersInterface";
 
 interface sidebarProps{
     sidebar: any
     openClose?: () => void
 }
 
+function openCloseCategoria(visible: any, setVisible: any){
+    if (visible === false) {
+        setVisible(true)
+    } else {
+        setVisible(false)
+    } 
+}
 
 export default function Sidebar(props: sidebarProps){
 
     const [visible, setVisible] = useState(false)
+    const [records, setRecords] = useState<RegistersInterface[]>([]);
 
-    function openCloseCategoria(){
-        if (visible === false) {
-            setVisible(true)
-        } else {
-            setVisible(false)
-        } 
-    }
+    useEffect(()=>{
+        fetchData(setRecords)
+    },[setRecords])
 
+    
     function listCategoria(){
         return(
             <div className={`bg-[#04042a]  p-[10px_0_10px_20px] transition-transform duration-300`}>
-                <ul>
-                    <li className="pt-3 pb-3 text-white hover:text-blue-500">Aventura</li>
-                    <li className="pt-3 pb-3 text-white hover:text-blue-500">Ação</li>
-                    <li className="pt-3 pb-3 text-white hover:text-blue-500">Ficção Científica</li>
-                </ul>
+                {records.map((record)=> (
+                    <ul key={record.id}>
+                        <li className="pt-3 pb-3 text-white hover:text-blue-500">{record.categories}</li>
+                    </ul>
+                ))}
             </div>
         )
     }
@@ -61,7 +68,7 @@ export default function Sidebar(props: sidebarProps){
                         pl-4 pt-4 pb-4 
                         text-xl 
                         hover:shadow-[0_2px_10px_#92B6F1]"
-                        onClick={openCloseCategoria}
+                        onClick={() => openCloseCategoria(visible, setVisible)}
                         >
                             <div className="flex items-center"> Categorias {iconeSetaParaBaixo} </div>
                         </div>

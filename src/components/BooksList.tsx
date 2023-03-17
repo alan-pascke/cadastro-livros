@@ -32,11 +32,11 @@ export default function BooksList(props: BookListInterface) {
 
     function renderHeader(){
         return(
-            <tr className=" grid grid-cols-5 items-center p-2 border-b">
+            <tr className=" grid grid-cols-4 items-center p-2 border-b">
                 <th className="col-span-1">Título</th>
                 <th className="col-span-1">Autor</th>
                 <th className="col-span-1">Categoria</th>
-                <th className="col-span-2">Ações</th>
+                <th className="col-span-1 flex justify-center">Ações</th>
             </tr>
 
         );
@@ -44,14 +44,14 @@ export default function BooksList(props: BookListInterface) {
 
     function renderBody(record: any){
         return(
-            <tr key={record.id} className={`grid grid-cols-5 items-center py-1 border-b`}>
-                <td className="col-span-1">{record.title}</td>
-                <td className="col-span-1">{record.autor}</td> 
-                <td className="col-span-1">{record.categories}</td> 
-                <td className="col-span-2 items-center flex justify-evenly ">
+            <tr key={record.id} className="grid grid-cols-4 items-center py-1 border-b">
+                <td>{record.title}</td>
+                <td>{record.autor}</td> 
+                <td>{record.categories}</td> 
+                <td className="flex justify-center cell:w-[90%] sm:w-full cell:text-[.8em] sm:text-sm">
                     <button 
                         onClick={() => {
-                        props.hendleClick(record)
+                        props.hendleClick(record, router)
                         }}
                         className="hover:rounded-md hover:bg-green-500 w-[60px]"
                         name="editar"
@@ -64,8 +64,9 @@ export default function BooksList(props: BookListInterface) {
                         </div>
                     </button>
                     <button 
-                        onClick={()=> {
+                        onClick={(e)=> {
                             confirm('Deseja mesmo excluir?') == true?  deleteBook(record) : false 
+                            e.preventDefault()
                         }}
                         className="hover:rounded-md hover:bg-red-500 w-[60px]"
                         >
@@ -86,7 +87,7 @@ export default function BooksList(props: BookListInterface) {
     }
 
     return(
-        <div className="grid grid-rows-6 justify-center items-center mt-[0.65rem] mx-[4%]">
+        <div className="grid grid-rows-6 justify-center items-center mt-[0.65rem] mx-[2.5%]">
             <div className="row-span-1">
                 <SearchBar icon={iconePesquisa} setItem={setSearchBook}/>
             </div>
@@ -94,7 +95,7 @@ export default function BooksList(props: BookListInterface) {
                 <div className="flex justify-end">
                     <Button text="+" color="bg-blue-500" action={navigationToNextPage}/>
                 </div>
-                <table className="overflow-hidden rounded-md min-w-[300px] mt-8 text-center">
+                <table className="overflow-hidden rounded-md min-w-[366px] mt-8 text-center">
                     <thead className="
                         text-lg
                         bg-[#04042a]
@@ -102,7 +103,7 @@ export default function BooksList(props: BookListInterface) {
                         {renderHeader()}
                         
                     </thead>
-                    <tbody className="bg-blue-600 text-sm text-white">
+                    <tbody className="bg-blue-600 cell:text-[.8em] sm:text-lg text-white">
                         {searchBook == '' ? records.map((record) => 
                         renderBody(record)
                         ) : (
