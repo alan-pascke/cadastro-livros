@@ -4,7 +4,6 @@ import { deleteBook, fetchData, hendleSearchBooks } from "services/bookServices"
 import { iconeEdicao, iconeLixo, iconePesquisa } from "@/components/Icons";
 import SearchBar from "./SearchBar";
 import Button from "./Button";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 
@@ -50,7 +49,8 @@ export default function BooksList(props: BookListInterface) {
                 <td>{record.categories}</td> 
                 <td className="flex justify-center cell:w-[90%] sm:w-full cell:text-[.8em] sm:text-sm">
                     <button 
-                        onClick={() => {
+                        onClick={(e) => {
+                        e.preventDefault()
                         props.hendleClick(record, router)
                         }}
                         className="hover:rounded-md hover:bg-green-500 w-[60px]"
@@ -82,10 +82,6 @@ export default function BooksList(props: BookListInterface) {
         )
     }
 
-    function navigationToNextPage(){
-        router.push('register_books/')
-    }
-
     return(
         <div className="grid grid-rows-6 justify-center items-center mt-[0.65rem] mx-[2.5%]">
             <div className="row-span-1">
@@ -93,7 +89,7 @@ export default function BooksList(props: BookListInterface) {
             </div>
             <div className="row-span-5">
                 <div className="flex justify-end">
-                    <Button text="+" color="bg-blue-500" action={navigationToNextPage}/>
+                    <Button text="+" color="bg-blue-500" action={() => router.push('register_books/')}/>
                 </div>
                 <table className="overflow-hidden rounded-md min-w-[366px] mt-8 text-center">
                     <thead className="
